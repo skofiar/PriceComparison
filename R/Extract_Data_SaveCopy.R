@@ -1,23 +1,5 @@
-# Function to wait for the scripts to be present on the page
-wait_for_scripts_to_load <- function(remote_driver, timeout = 10) {
-  # Wait up to `timeout` seconds for at least one script element to be present
-  for (i in 1:timeout) {
-    script_elements <- remote_driver$findElements(using = 'xpath', value = "//script[@type='application/ld+json']")
-    if (length(script_elements) > 0) return(TRUE)
-    Sys.sleep(1) # Wait for 1 second before trying again
-  }
-  FALSE # Return FALSE if the script elements never appeared
-}
-
 # Extract the script information of each page:
 extract_script_frompage <- function(remote_driver, page_nmbr){
-
-  # Wait for the script elements to load
-  if (!wait_for_scripts_to_load(remote_driver)) {
-    message(paste("Scripts did not load after waiting on page", page_nmbr))
-    return(NULL)
-  }
-
   # Loop through all found script elements and extract the JSON content
   script_elements <- remote_driver$findElements(using = 'xpath', value = "//script[@type='application/ld+json']")
   extracted_data <- vector("list", length = length(script_elements))  # Create a list to hold extracted data
@@ -31,7 +13,7 @@ extract_script_frompage <- function(remote_driver, page_nmbr){
       json_ld <- jsonlite::fromJSON(json_text)
 
       # Extract the car-information:
-      element <-(as.numeric(page_nmbr) - 1 )*20 + as.numeric(json_ld$itemListElement$position)
+      element <- paste0(page_nmbr, ".", json_ld$itemListElement$position)  # --> Eventuell muss das noch geändert werden!
       car_names <- json_ld$itemListElement$item$name
       car_prices <- as.numeric(json_ld$itemListElement$item$offers$price)
       car_registered_date <- json_ld$itemListElement$item$dateVehicleFirstRegistered
@@ -61,7 +43,7 @@ extract_script_frompage <- function(remote_driver, page_nmbr){
 # Function to extract data from a page
 extract_data_from_page <- function(page_number) {
   remote_driver$navigate(paste0('https://www.autoscout24.ch/de/autos/alle-marken?vehtyp=10&page=', page_number))
-  # Sys.sleep(1)  # Wait for the page to load
+  Sys.sleep(1)  # Wait for the page to load
   extract_script_frompage(remote_driver, page_number)
 }
 
