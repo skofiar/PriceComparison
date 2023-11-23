@@ -44,8 +44,11 @@ adding_to_database <- function(scrapped_dataframe){
     autoscout_db <- data.table::fread(input = "./Output/Autoscout_Database.csv")
 
     # If the any element is "V1", we want to delete it, as it is an empty column
-    if (colnames(autoscout_db)[1] == "V1") {
+    if ("V1" %in% colnames(autoscout_db)) {
       set(autoscout_db, j = which(colnames(autoscout_db) == "V1"), value = NULL)
+    }
+    if ("V1" %in% colnames(new_df_prepared)) {
+      set(new_df_prepared, j = which(colnames(new_df_prepared) == "V1"), value = NULL)
     }
 
     #### Check which elements were already yesterday online:
@@ -55,6 +58,8 @@ adding_to_database <- function(scrapped_dataframe){
 
     # Then proceed with the binary search as before
     autoscout_db[, Status := unique_id %in% new_df_prepared$unique_id]
+    # All of the cars in these rows are online now (as it is taken from the actual day)
+    new_df_prepared$Status <- T
 
     ##### THE CLASSIFICATION IS NOT CORRECT IF A CAR IS SOLD OR NOT!!
 
@@ -63,9 +68,20 @@ adding_to_database <- function(scrapped_dataframe){
 
     ##### HERE NEEDS TO BE FURTHER CODE!!!
 
+    # Find data rows, that are not represented in the DB:
+    unique_new_data <- new_df_prepared[!autoscout_db, on = .(unique_id)]
+
+    # Fixing wrong data types:
+    unique_new_data$Datum <- as.Date(unique_new_data$Datum)
+    autoscout_db$Datum <- as.Date(autoscout_db$Datum)
+
+    # Append the new data to the autoscout_db:
+    autoscout_db <- rbind(unique_new_data, autoscout_db)
+
     # Export Result as new Autoscout DB:
     data.table::fwrite(autoscout_db,
                        "./Output/Autoscout_Database.csv", row.names = T)
 
   }
 }
+
