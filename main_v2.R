@@ -31,33 +31,35 @@ item_list_pattern <- '"@type": "ItemList"'
 
 numCores <- detectCores()
 plan(multisession, workers = max(numCores-2,1))  # Adjust the number of workers based on your machine
-
-# List to store future objects
-page_futures <- list()
-
 # Loop to initiate scraping in parallel
-total_pages <- 750 # Replace with actual total page count
-# print(total_pages)
-for (page_number in 1:total_pages) {
-  page_futures[[page_number]] <- future({
-    process_page(page_number)
-  })
+# total_pages <- get_total_pages(driver = remote_driver)
+total_pages <- 750
+
+# # Initialize a result data frame:
+# final_result <- as.data.frame(matrix(rep(NA, 9), ncol = 9))
+# colnames(final_result) <- c("element", "car_names", "car_prices", "car_registered_date",
+#                             "car_km", "car_PS", "car_configuration", "car_fuelType", "car_adresse" )
+
+results <- list()
+# Scrape the data:
+for (i in 1:total_pages) {
+  results[[i]] <- process_page(page_number = i)
 }
 
-# Initiate scraping in parallel and collect the results
-results <- future_map(1:total_pages, process_page)
-
+# # Initiate scraping in parallel and collect the results
+# results <- future_map(1:total_pages, process_page)
+#
 # Combine all the dataframes into one
 final_result <- do.call(rbind, results)
 
 # Stopping the end time and calculting the duration of the tool up until here:
 end_time <- Sys.time()
-duration <- end_time - start_timVe
+duration <- end_time - start_time
 print(paste0("The tool took ", duration, "hours/minuts/seconds for the whole scraping!"))
 
 # Print the final combined dataframe
 print("All pages have been processed.")
-print(final_result)
+View(final_result)
 
 # Prepare the final_result:
 autoscout_db <- adding_to_database(scrapped_dataframe = final_result)
@@ -69,11 +71,11 @@ remote_driver$close()
 
 
 # Prepare the data:
-# 1. Need to add the current date:
+# XXX 1. Need to add the current date:
 # XXX 2. Extract Automarke und Auto Modell --> Finde guten weg hierfür!
 # 3. Add the link to the element
 # 4. Karte erstellen mit den Postleitzahlen
-# 5. Automarke erstellen indem weitere Spalten hinzugefügt werden und dann immer weiter für das nächste Element gefiltert wird
+# XXX 5. Automarke erstellen indem weitere Spalten hinzugefügt werden und dann immer weiter für das nächste Element gefiltert wird
 # XXX 6. Zeit messen wie lange das es braucht um die Daten zu generieren
 
 # # Make a save copy:

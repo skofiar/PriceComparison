@@ -19,7 +19,7 @@
 #' @export
 prepare_scrapped_data <- function(df_to_prep){
   # Extract the colnames
-  colnames_df <- colnames(prepared_df)
+  colnames_df <- colnames(df_to_prep)
 
   # Prepare the df
   prepared_df <- df_to_prep %>%

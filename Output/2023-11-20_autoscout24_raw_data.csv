@@ -1,0 +1,20 @@
+"",element,car_names,car_prices,car_registered_date,car_km,car_PS,car_configuration,car_fuelType,car_adresse,Datum,Marke,Typ_grob,Typ,Status,VerkauftIn
+"1",1,ALFA ROMEO Stelvio 2.9V6 Quadrif.Q4,57500,07.2020,52'800,510,Automatikgetriebe,Benzin,3172 Bern-Niederwangen,2023-11-20,ALFA ,ROMEO ,ROMEO Stelvio ,,FALSE
+"2",2,BMW 530e xDr Tour PureM Sport,46000,12.2021,32'000,183,Automatikgetriebe,Hybrid,3172 Bern-Niederwangen,2023-11-20,BMW ,530e ,530e xDr ,,FALSE
+"3",3,BMW 430i Cabrio xDrive Sport,27000,03.2018,83'200,252,Automatikgetriebe,Benzin,3172 Bern-Niederwangen,2023-11-20,BMW ,430i ,430i Cabrio ,,FALSE
+"4",4,BMW 225xe Active Tourer,21000,12.2019,36'000,136,Automatikgetriebe,Hybrid,3172 Bern-Niederwangen,2023-11-20,BMW ,225xe ,225xe Active ,,FALSE
+"5",5,BMW M4 F82 Coupé Competition DKG dÄHLer Edition 515,64900,06.2017,99'900,515,Automatikgetriebe,Benzin,8370 Sirnach/ TG,2023-11-20,BMW ,M4 ,M4 F82 ,,FALSE
+"6",6,BMW 320d xDrive 48V Touring,55800,Vorführmodell,12'000,190,Automatikgetriebe,Diesel,3172 Bern-Niederwangen,2023-11-20,BMW ,320d ,320d xDrive ,,FALSE
+"7",7,BMW M850i xDrive,105900,06.2023,15'000,530,Automatikgetriebe,Benzin,3172 Bern-Niederwangen,2023-11-20,BMW ,M850i ,M850i ,,FALSE
+"8",8,BMW i7 xDrive 60 M Sport Pro,135900,Vorführmodell,3'000,544,Automatikgetriebe,Elektro,3172 Bern-Niederwangen,2023-11-20,BMW ,i7 ,i7 xDrive ,,FALSE
+"9",9,BMW XM xDrive PHEV Steptronic,159900,Neues Fahrzeug,11,489,Automatikgetriebe,Hybrid,3172 Bern-Niederwangen,2023-11-20,BMW ,XM ,XM xDrive ,,FALSE
+"10",10,BMW X7 xDr 48 M60i M Sp. Pro,152900,Vorführmodell,4'900,530,Automatikgetriebe,Benzin,3172 Bern-Niederwangen,2023-11-20,BMW ,X7 ,X7 xDr ,,FALSE
+"11",11,TOYOTA Aygo AUTOMAT 1.0 Linea Luna Cool Multimode,6900,07.2010,58'780,68,Automatikgetriebe,Benzin,6012 Kriens-Obernau,2023-11-20,TOYOTA ,Aygo ,Aygo AUTOMAT ,,FALSE
+"12",12,FIAT 500 0.9 Twinair Turbo S,8900,08.2013,91'750,85,Handschaltung,Benzin,8108 Dällikon ,2023-11-20,FIAT ,500 ,500 0.9 ,,FALSE
+"13",13,BMW X5 xDrive 48V 30d M Sport Steptronic,64900,12.2021,53'500,285,Automatikgetriebe,Diesel,8305 Dietlikon,2023-11-20,BMW ,X5 ,X5 xDrive ,,FALSE
+"14",14,MERCEDES-BENZ A 35 AMG 4Matic Speedshift,30000,03.2019,116'200,306,Automatikgetriebe,Benzin,6417 Sattel SZ,2023-11-20,MERCEDES-BENZ ,A ,A 35 ,,FALSE
+"15",15,VW Passat Variant 2.0 TDI R-LINE BMT Highline DSG,15555,11.2016,179'970,150,Automatikgetriebe,Diesel,8156 Oberhasli,2023-11-20,VW ,Passat ,Passat Variant ,,FALSE
+"16",16,CUPRA Ateca 2.0TSI 4Drive,31900,04.2019,70'000,300,Automatikgetriebe,Benzin,8800 Thalwil,2023-11-20,CUPRA ,Ateca ,Ateca 2.0TSI ,,FALSE
+"17",17,FIAT 500 electric 87 kW La Prima,27800,03.2022,22'000,119,Automatikgetriebe,Elektro,5412 Gebenstorf,2023-11-20,FIAT ,500 ,500 electric ,,FALSE
+"18",18,ALFA ROMEO 4C 1750 TBi TCT,69900,06.2017,26'800,241,Automatikgetriebe,Benzin,8105 Regensdorf,2023-11-20,ALFA ,ROMEO ,ROMEO 4C ,,FALSE
+"19",19,SKODA Kamiq 1.0 TSI Ambition DSG,31900,Neues Fahrzeug,100,110,Automatikgetriebe,Benzin,6760 Faido,2023-11-20,SKODA ,Kamiq ,Kamiq 1.0 ,,FALSE

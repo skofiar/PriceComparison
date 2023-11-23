@@ -37,7 +37,7 @@ adding_to_database <- function(scrapped_dataframe){
     # Prepare the scrapped data:
     new_df_prepared <- as.data.table(prepare_scrapped_data(new_df))
     # Save the data frames to Output:
-    data.table::fwrite(autoscout_data_base,
+    data.table::fwrite(new_df_prepared,
                        paste0("./Output/", Sys.Date(), "_autoscout24_raw_data.csv"), row.names = T)
 
     # Load the auto data base:
@@ -64,7 +64,7 @@ adding_to_database <- function(scrapped_dataframe){
     ##### HERE NEEDS TO BE FURTHER CODE!!!
 
     # Export Result as new Autoscout DB:
-    data.table::fwrite(autoscout_data_base,
+    data.table::fwrite(autoscout_db,
                        "./Output/Autoscout_Database.csv", row.names = T)
 
   }

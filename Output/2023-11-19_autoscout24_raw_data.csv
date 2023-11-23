@@ -1,0 +1,21 @@
+"",element,car_names,car_prices,car_registered_date,car_km,car_PS,car_configuration,car_fuelType,car_adresse,Datum,Marke,Typ_grob,Typ,Status,VerkauftIn
+"1",1,JAGUAR F-Pace 5.0 V8 SVR AWD,80500,03.2019,29'900,550,Automatikgetriebe,Benzin,8807 Freienbach,2023-11-19,JAGUAR ,F-Pace ,F-Pace 5.0 ,,FALSE
+"2",2,VOLVO XC60 2.0 B4 MH Plus Dark AWD,71240,Neues Fahrzeug,100,211,Automatikgetriebe,Diesel,1920 Martigny,2023-11-19,VOLVO ,XC60 ,XC60 2.0 ,,FALSE
+"3",3,LAND ROVER Range Rover 3.0 I6 Vogue,89900,12.2019,49'000,400,Automatikgetriebe,Benzin,1211 Genève 26,2023-11-19,LAND ,ROVER ,ROVER Range ,,FALSE
+"4",4,SKODA Karoq 2.0 TDI Drive 4x4 DSG,35950,07.2020,25'000,150,Automatikgetriebe,Diesel,3714 Frutigen,2023-11-19,SKODA ,Karoq ,Karoq 2.0 ,,FALSE
+"5",5,TOYOTA Yaris 1.5 Comfort e-CVT,22390,Tageszulassung,10,116,Automatikgetriebe,Hybrid,4923 WYNAU (BE),2023-11-19,TOYOTA ,Yaris ,Yaris 1.5 ,,FALSE
+"6",6,AUDI A1 Sportback 30 TFSI advanced Attraction S-tronic,36120,Neues Fahrzeug,10,110,Automatikgetriebe,Benzin,8803 Rüschlikon,2023-11-19,AUDI ,A1 ,A1 Sportback ,,FALSE
+"7",7,BMW X5 xDrive M50d Steptronic M Sport,53900,01.2018,73'255,381,Automatikgetriebe,Diesel,8424 Embrach,2023-11-19,BMW ,X5 ,X5 xDrive ,,FALSE
+"8",8,SEAT Leon ST 1.4 e Hybrid Hola FR Automat (CH-Auslieferung),31800,06.2021,26'000,204,Automatikgetriebe,Hybrid,6300 Zug,2023-11-19,SEAT ,Leon ,Leon ST ,,FALSE
+"9",9,SUZUKI Vitara 1.4 Boosterjet Sergio Cellano Top,18900,07.2016,89'500,140,Handschaltung,Benzin,6313 Menzingen,2023-11-19,SUZUKI ,Vitara ,Vitara 1.4 ,,FALSE
+"10",10,HYUNDAI KONA Electric Vertex 64 KWH,32800,04.2020,33'000,204,Automatikgetriebe,Elektro,4614 Hägendorf,2023-11-19,HYUNDAI ,KONA ,KONA Electric ,,FALSE
+"11",11,MINI Cooper John Cooper Works Steptronic,34800,03.2021,16'500,231,Automatikgetriebe,Benzin,6012 Kriens-Obernau,2023-11-19,MINI ,Cooper ,Cooper John ,,FALSE
+"12",12,AUDI Q3 40 TDI quattro,34850,12.2020,31'000,200,Automatikgetriebe,Diesel,7323 Wangs,2023-11-19,AUDI ,Q3 ,Q3 40 ,,FALSE
+"13",13,NISSAN Juke 1.5 dCi tekna,10900,02.2015,135'240,110,Handschaltung,Diesel,8154 Oberglatt,2023-11-19,NISSAN ,Juke ,Juke 1.5 ,,FALSE
+"14",14,BMW 218d xDrive Active Tourer Steptronic Luxury Line,26800,10.2020,51'838,150,Automatikgetriebe,Diesel,8424 Embrach,2023-11-19,BMW ,218d ,218d xDrive ,,FALSE
+"15",15,AUDI A6 Avant 40 TDI Sport quattro S-tronic,81000,Vorführmodell,2'500,204,Automatikgetriebe,Diesel,7500 St.Moritz,2023-11-19,AUDI ,A6 ,A6 Avant ,,FALSE
+"16",16,VW T-Roc 1.5 TSI EVO Advance DSG,17999,05.2019,147'704,150,Automatikgetriebe,Benzin,6312 Steinhausen,2023-11-19,VW ,T-Roc ,T-Roc 1.5 ,,FALSE
+"17",17,HYUNDAI Kona 1.6 T-GDi N Line 4WD DCT,43800,Neues Fahrzeug,50,198,Automatikgetriebe,Benzin,1400 Yverdon-les-Bains,2023-11-19,HYUNDAI ,Kona ,Kona 1.6 ,,FALSE
+"18",18,PORSCHE TAYCAN GTS,129900,05.2022,14'900,598,Automatikgetriebe,Elektro,8835 Feusisberg,2023-11-19,PORSCHE ,TAYCAN ,TAYCAN ,,FALSE
+"19",19,SKODA Enyaq iV 60,49950,02.2023,9'800,180,Automatikgetriebe,Elektro,3714 Frutigen,2023-11-19,SKODA ,Enyaq ,Enyaq iV ,,FALSE
+"20",20,AUDI e-tron 55 Advanced quattro,64900,02.2020,58'000,360,Automatikgetriebe,Elektro,8853 Lachen,2023-11-19,AUDI ,e-tron ,e-tron 55 ,,FALSE
