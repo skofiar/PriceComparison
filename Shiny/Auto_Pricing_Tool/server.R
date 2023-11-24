@@ -41,7 +41,7 @@ pth_stl <- createStyle(textDecoration = "Bold", fontSize = 13)
 #Defining the options for the dataTableOutput:
 DToptions <- list(autoWidth = FALSE, scrollX = TRUE,
                   columnDefs = list(list(width = "125px", targets = "_all")),dom = 'tpB',
-                  lengthMenu = list(c(5, 10,-1), c('5', '10', 'All')), pageLength = 10)
+                  lengthMenu = list(c(5, 10,-1), c('5', '10', 'All')), pageLength = 7)
 
 ##################################################################################
 # Server Functions:
@@ -72,7 +72,7 @@ function(input, output, session) {
           column(6,
                  numericInput("scrape_data_numberofpages_start",
                               label = "How many pages do you want to scrape?",
-                              min = 1, max = 10000, value = 750),
+                              min = 1, max = 10000, value = 1),
                  shinyBS::bsTooltip(id = "scrape_data_numberofpages_start",
                                     title = "For each page selected 20 car information are extracted.",
                                     placement = "right", trigger = "hover",
@@ -100,14 +100,28 @@ function(input, output, session) {
         )
       return(outputlist)
     })
+    # Create the UI for the Autoscout DB table
+    output$scrape_data_autoscout_table_ui <- renderUI({
+      outputlist <- list()
+      outputlist[[1]] <- box(title = "Autoscout DataBase:",
+                           width = "100%", status = "primary",
+                           solidHeader = TRUE, collapsible = TRUE,
+                           DT::dataTableOutput("scrape_data_autoscout_table")
+      )
 
-    # Show the first couple of rows of the Autoscout data table:
-    output$scrape_data_autoscout_table <- DT::renderDataTable({
-      #Output the data table
-      return(datatable(autoscout_db$data.table , options = DToptions,
-                       class = 'cell-border stripe', editable = T, rownames = F,
-                       filter = "none"))
+      return(outputlist)
     })
+
+
+  })
+
+  # Show the first couple of rows of the Autoscout data table:
+  output$scrape_data_autoscout_table <- DT::renderDataTable({
+    if (is.null(autoscout_db$data.table )) {return()}
+    #Output the data table
+    return(datatable(autoscout_db$data.table , options = DToptions,
+                     class = 'cell-border stripe', editable = T, rownames = F,
+                     filter = "none"))
   })
 
   # As soon as the "Scrape Data" button is clicked, we start with the scraping of the data:

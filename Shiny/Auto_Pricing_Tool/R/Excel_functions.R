@@ -33,7 +33,6 @@ fileinp.filereadin <- function(fileinp, shtnms, range.selection, mltple){
   if (mltple == F) {
     #Read out the extension of the Paid triangle, in order to read in correctly:
     extension <- tools::file_ext(fileinp$name)
-    print(extension)
     #Tells me the path where the file is currently saved on:
     filepath <- fileinp$datapath
     #Tells me the name of the fileinput
