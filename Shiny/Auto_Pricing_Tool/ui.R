@@ -155,6 +155,7 @@ shinyUI(
                                   ),
                               column(8,
                                       # h2("Output table of the Scrapped Datatable:"),
+                                      DT::dataTableOutput("scrape_data_autoscout_table"),
                                       DT::dataTableOutput("scrape_data_scrappeddata_table")
                                   )
                             )

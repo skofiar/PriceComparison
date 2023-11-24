@@ -20,13 +20,20 @@
 #' @importFrom tools file_ext
 #' @importFrom readr read_csv
 #' @importFrom readxl excel_sheets read_xls read_xlsx read_excel
+#' @importFrom data.table fread, set
 #' @export
 fileinp.filereadin <- function(fileinp, shtnms, range.selection, mltple){
-  if (is.null(fileinp)) { return() }
+  # library(tools)
+  # library(readr)
+  # library(readxl)
+  # library(data.table)
+
+  if (is.null(fileinp)) { return(NULL) }
 
   if (mltple == F) {
     #Read out the extension of the Paid triangle, in order to read in correctly:
     extension <- tools::file_ext(fileinp$name)
+    print(extension)
     #Tells me the path where the file is currently saved on:
     filepath <- fileinp$datapath
     #Tells me the name of the fileinput
@@ -36,26 +43,37 @@ fileinp.filereadin <- function(fileinp, shtnms, range.selection, mltple){
     # We deactivate colnames here, as they are going to be selected by the user later on!
     if (is.null(shtnms)) {
       df <- switch(extension,
-                   csv = readr::read_csv(filepath, col_names = F),
+                   # csv = readr::read_csv(filepath, col_names = F),
+                   csv = data.table::fread(filepath),
                    xls = readxl::read_xls(filepath, col_names = F),
                    xlsx = readxl::read_xlsx(filepath, col_names = F),
                    xlsm = readxl::read_excel(path = filepath, col_names = F))
     }else{
       df <- switch(extension,
-                   csv = readr::read_csv(filepath, col_names = F),
+                   # csv = readr::read_csv(filepath, col_names = F),
+                   csv = data.table::fread(filepath),
                    xls = readxl::read_xls(filepath, sheet = shtnms , range = range.selection, col_names = F),
                    xlsx = readxl::read_xlsx(filepath, sheet = shtnms, range = range.selection, col_names = F),
                    xlsm = readxl::read_excel(path = filepath, sheet = shtnms, range = range.selection, col_names = F))
     }
 
+    # In case csv was selected, we need to check for "V1" columns:
+    if ("V1" %in% colnames(df)) {
+      data.table::set(df, j = which(colnames(df) == "V1"), value = NULL)
+    }
+
     # Convert datatable to dataframe:
     df <- as.data.frame(df)
 
-    #Naming the columns correctly:
-    colnames(df) <- c(paste(1:(dim(df)[2])))
+    if (extension != "csv") {
+      #Naming the columns correctly:
+      colnames(df) <- c(paste(1:(dim(df)[2])))
 
-    #Extract sheet names from an excel
-    sheet.names <- readxl::excel_sheets(paste(filepath))
+      #Extract sheet names from an excel
+      sheet.names <- readxl::excel_sheets(paste(filepath))
+    }else{
+      sheet.names <- NULL
+    }
 
     return(list(df, extension, filepath, filenm, sheet.names))
   }else{
@@ -76,23 +94,34 @@ fileinp.filereadin <- function(fileinp, shtnms, range.selection, mltple){
       # We deactivate colnames here, as they are going to be selected by the user later on!
       if (is.null(shtnms)) {
         df <- switch(extension,
-                     csv = readr::read_csv(filepath, col_names = F),
+                     # csv = readr::read_csv(filepath, col_names = F),
+                     csv = data.table::fread(filepath),
                      xls = readxl::read_xls(filepath, col_names = F),
                      xlsx = readxl::read_xlsx(filepath, col_names = F),
                      xlsm = readxl::read_excel(path = filepath, col_names = F))
       }else{
         df <- switch(extension,
-                     csv = readr::read_csv(filepath, col_names = F),
+                     # csv = readr::read_csv(filepath, col_names = F),
+                     csv = data.table::fread(filepath),
                      xls = readxl::read_xls(filepath, sheet = shtnms , range = range.selection, col_names = F),
                      xlsx = readxl::read_xlsx(filepath, sheet = shtnms, range = range.selection, col_names = F),
                      xlsm = readxl::read_excel(path = filepath, sheet = shtnms, range = range.selection, col_names = F))
       }
 
-      #Naming the columns correctly:
-      colnames(df) <- c(paste(1:(dim(df)[2])))
+      # In case csv was selected, we need to check for "V1" columns:
+      if ("V1" %in% colnames(df)) {
+        data.table::set(df, j = which(colnames(df) == "V1"), value = NULL)
+      }
 
-      #Extract sheet names from an excel
-      sheet.names <- readxl::excel_sheets(paste(filepath))
+      if (extension != "csv") {
+        #Naming the columns correctly:
+        colnames(df) <- c(paste(1:(dim(df)[2])))
+
+        #Extract sheet names from an excel
+        sheet.names <- readxl::excel_sheets(paste(filepath))
+      }else{
+        sheet.names <- NULL
+      }
 
       #Append the row as an listelement in form of a list:
       outputlist[[i]] <- list(df, extension, filepath, filenm, sheet.names)

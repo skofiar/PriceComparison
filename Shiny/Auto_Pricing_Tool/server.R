@@ -1,15 +1,51 @@
 library(shiny)
+library(roxygen2)
+library(openxlsx)
 
 ## Input Variables:
 # Make the input-size bigger:
 options(shiny.maxRequestSize = 1000*1024^2)
+
+##################################################################################
+# Working directories:
+##################################################################################
 # Extract working directory:
 workingdir <- getwd()
 
+##################################################################################
+# Load Source-Files:
+##################################################################################
 ## Source R - Function files:
-source(paste0(getwd(),"/Shiny/Auto_Pricing_Tool/R/Excel_functions.R"))
+source("./R/Excel_functions.R")
 
-# Define server logic required to draw a histogram
+# Autoscout Source files
+source("./R/Port_finding_helperfunction.R")
+source("./R/Page_Information.R")
+source("./R/Extract_Data.R")
+source("./R/Adding_to_Database.R")
+source("./R/Prepare_Scrapped_Data.R")
+
+
+##################################################################################
+# Excel Output Style:
+##################################################################################
+grybckgrndclr <- createStyle(fgFill = "gray93")
+bckgrndclr <- createStyle(fgFill = "white")
+insideBorders <- createStyle( border = c("top", "bottom"), borderStyle = "thin", fgFill = "white")
+header_st <- createStyle(textDecoration = "Bold", fgFill = "yellow", border = c("top", "left", "bottom", "right"))
+pth_stl <- createStyle(textDecoration = "Bold", fontSize = 13)
+
+##################################################################################
+# Initialiazing Variables:
+##################################################################################
+#Defining the options for the dataTableOutput:
+DToptions <- list(autoWidth = FALSE, scrollX = TRUE,
+                  columnDefs = list(list(width = "125px", targets = "_all")),dom = 'tpB',
+                  lengthMenu = list(c(5, 10,-1), c('5', '10', 'All')), pageLength = 10)
+
+##################################################################################
+# Server Functions:
+##################################################################################
 function(input, output, session) {
   # Generate the reactive Values list, where we save all the information in:
   autoscout_db <- reactiveValues()
@@ -20,7 +56,7 @@ function(input, output, session) {
     autoscout_db$raw_data_info <- fileinp.filereadin(fileinp = Fileinp, shtnms = NULL,
                                                      range.selection = NULL, mltple = F)
     autoscout_db$data.table <- autoscout_db$raw_data_info[[1]]
-    print(autoscout_db$data.table)
+    # print(autoscout_db$data.table)
 
     ### Load the second input box, which allows to give more detailed information
     ####  about the scrape process:
@@ -37,7 +73,7 @@ function(input, output, session) {
                  numericInput("scrape_data_numberofpages_start",
                               label = "How many pages do you want to scrape?",
                               min = 1, max = 10000, value = 750),
-                 shinyBS::bsTooltip(id = "scrape_data_numberofpages_end",
+                 shinyBS::bsTooltip(id = "scrape_data_numberofpages_start",
                                     title = "For each page selected 20 car information are extracted.",
                                     placement = "right", trigger = "hover",
                                     options = list(container = "body")),
@@ -63,6 +99,14 @@ function(input, output, session) {
              )
         )
       return(outputlist)
+    })
+
+    # Show the first couple of rows of the Autoscout data table:
+    output$scrape_data_autoscout_table <- DT::renderDataTable({
+      #Output the data table
+      return(datatable(autoscout_db$data.table , options = DToptions,
+                       class = 'cell-border stripe', editable = T, rownames = F,
+                       filter = "none"))
     })
   })
 

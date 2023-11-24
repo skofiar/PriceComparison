@@ -77,6 +77,8 @@ adding_to_database <- function(scrapped_dataframe){
 
     # Append the new data to the autoscout_db:
     autoscout_db <- rbind(unique_new_data, autoscout_db)
+    # Renumerate element column:
+    autoscout_db$element <- 1:(dim(autoscout_db)[1])
 
     # Export Result as new Autoscout DB:
     data.table::fwrite(autoscout_db,
