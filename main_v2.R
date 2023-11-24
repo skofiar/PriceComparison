@@ -33,7 +33,7 @@ numCores <- detectCores()
 plan(multisession, workers = max(numCores-2,1))  # Adjust the number of workers based on your machine
 # Loop to initiate scraping in parallel
 # total_pages <- get_total_pages(driver = remote_driver)
-total_pages <- 750
+total_pages <- 1000
 
 # # Initialize a result data frame:
 # final_result <- as.data.frame(matrix(rep(NA, 9), ncol = 9))

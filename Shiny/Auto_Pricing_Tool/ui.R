@@ -7,6 +7,7 @@ library(shinyBS)
 library(shinyjs)
 library(shinycssloaders)
 library(shinyalert)
+library(htmltools)
 
 library(plotly)
 # library(shinyFiles)
@@ -58,7 +59,7 @@ shinyUI(
                 dashboardSidebar(
                   sidebarMenu(id = 'sidebarmenu',
                               menuItem("Scrape Autoscout:", tabName = "Introduction", startExpanded = TRUE,
-                                       menuSubItem("Scrape Data", tabName = "Scrape_data", icon = icon("info"))
+                                       menuSubItem("Scrape Data", tabName = "Scrape_data")
                               ),
                               menuItem("Data Analytics", tabName = "Data_Analytics", startExpanded = FALSE,
                                        menuSubItem("Data Analysis", tabName = "Data_analysis"),
@@ -128,18 +129,35 @@ shinyUI(
                   #########                     Tab Elements                    ##################
                   ################################################################################
                   tabItems(
-                    tabItem(tabName = "Introduction",
-                            # Content for Introduction tab
-                    ),
-                    tabItem(tabName = "Data_Analytics",
-                            # Content for Data Analytics tab
-                    ),
                     ############################################################################
                     #########             Scrape Data from Autoscout24            ##############
                     ############################################################################
                     tabItem(tabName = "Scrape_data",
-                            h1("How it works"),
-                            helpText("Need still to be done:")
+                            h1(paste0("Scrappe Autoscout24 from ", Sys.Date())),
+                            helpText("At least once a day, we want to click on the
+                                     'Scrappe Data'-button to get an update of the
+                                     newest cars on autoscout24."),
+                            fluidRow(
+                              column(4,
+                                     box(title = "DataBase Information:",
+                                         width = "100%", status = "primary",
+                                         solidHeader = TRUE, collapsible = TRUE,
+                                         fileInput(inputId = "scrape_data_fileinput",
+                                                   label = "Please provide the current database:",
+                                                   multiple = F),
+                                         div(id = "centricbutton",
+                                             actionButton("scrape_data_startscraping", "Load Autoscout DB",
+                                                          style="color: #FFFFFF; background-color:  #24a0ed; border-color:  #24a0ed")
+                                         )
+                                     ),
+                                     uiOutput("scrape_data_infos"),
+                                     uiOutput("scrape_data_generateDB")
+                                  ),
+                              column(8,
+                                      # h2("Output table of the Scrapped Datatable:"),
+                                      DT::dataTableOutput("scrape_data_scrappeddata_table")
+                                  )
+                            )
 
                     ),
                     ############################################################################
