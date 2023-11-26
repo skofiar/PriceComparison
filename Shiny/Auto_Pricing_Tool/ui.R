@@ -55,11 +55,12 @@ library(dplyr)
 ##################################################################################
 shinyUI(
   dashboardPage(skin = "blue",
-                dashboardHeader(title = "Car_Pricing"),
+                dashboardHeader(title = "Pricing Tool"),
                 dashboardSidebar(
                   sidebarMenu(id = 'sidebarmenu',
                               menuItem("Scrape Autoscout:", tabName = "Introduction", startExpanded = TRUE,
-                                       menuSubItem("Scrape Data", tabName = "Scrape_data")
+                                       menuSubItem("Scrape Data", tabName = "Scrape_data"),
+                                       menuSubItem("Combine Data", tabName = "Combine_scrape_data")
                               ),
                               menuItem("Data Analytics", tabName = "Data_Analytics", startExpanded = FALSE,
                                        menuSubItem("Data Analysis", tabName = "Data_analysis"),
@@ -130,7 +131,7 @@ shinyUI(
                   ################################################################################
                   tabItems(
                     ############################################################################
-                    #########             Scrape Data from Autoscout24            ##############
+                    #########                   Scrape Data                       ##############
                     ############################################################################
                     tabItem(tabName = "Scrape_data",
                             h1(paste0("Scrappe Autoscout24 from ", Sys.Date())),
@@ -139,35 +140,104 @@ shinyUI(
                                      newest cars on autoscout24."),
                             fluidRow(
                               column(4,
-                                     box(title = "DataBase Information:",
-                                         width = "100%", status = "primary",
+                                     box(title = "Scrape Data:", width = "100%",
                                          solidHeader = TRUE, collapsible = TRUE,
-                                         fileInput(inputId = "scrape_data_fileinput",
-                                                   label = "Please provide the current database:",
-                                                   multiple = F),
+                                         helpText("Please provide first additinal Information
+                                                    about the type of scrapping you want to achieve:"),
+                                         fluidRow(
+                                           column(6,
+                                                  numericInput("scrape_data_numberofpages_start",
+                                                               label = "How many pages do you want to scrape?",
+                                                               min = 1, max = 10000, value = 1),
+                                           ),
+                                           column(6,
+                                                  numericInput("scrape_data_numberofpages_end",
+                                                               label = "How many pages do you want to scrape?",
+                                                               min = 1, max = 10000, value = 750),
+                                                  shinyBS::bsTooltip(id = "scrape_data_numberofpages_end",
+                                                                     title = "For each page selected 20 car information are extracted.",
+                                                                     placement = "right", trigger = "hover",
+                                                                     options = list(container = "body")),
+                                           )
+                                         ),
+
+                                         hr(),
+                                         helpText("By pressing the button 'Scrape Data', you will
+                                                    start the scraping of the autoscout24 data.",
+                                                  strong("This takes time!")),
                                          div(id = "centricbutton",
-                                             actionButton("scrape_data_startscraping", "Load Autoscout DB",
+                                             actionButton("scrape_data_startscraping", "Scrape Data",
                                                           style="color: #FFFFFF; background-color:  #24a0ed; border-color:  #24a0ed")
                                          )
                                      ),
-                                     uiOutput("scrape_data_infos"),
-                                     uiOutput("scrape_data_generateDB")
-                                  ),
+                                     uiOutput("scrape_data_combine_dataframes"),
+                                     uiOutput("scrape_data_final_message")
+
+                              ),
                               column(8,
-                                      uiOutput("scrape_data_autoscout_table_ui"),
-                                      uiOutput("scrape_data_scrappeddata_table_ui")
-                                      # DT::dataTableOutput("scrape_data_autoscout_table"),
-                                      # DT::dataTableOutput("scrape_data_scrappeddata_table")
-                                  )
-                            )
+                                     box(title = "General Info",
+                                         width = "100%",
+                                         solidHeader = TRUE, collapsible = TRUE,
+                                         helpText("Be aware of the following things:"),
+                                         tags$ol(
+                                           tags$li("Each page will take around a 1 second to load."),
+                                           tags$li("You see the status of the process on the right button."),
+                                           tags$li("After the process is finished, you will see the scraped table.
+                                                    By clicking on the button 'Aggregate Data to DB', you will be able
+                                                    to add this data to the DB.")
+                                         )
+                                     ),
+                                     uiOutput("scrape_data_scrappeddata_table_ui")
+                              )
+                            ),
 
                     ),
+                    ############################################################################
+                    #######             Combine Data with Autoscout - DB          ##############
+                    ############################################################################
+                    # tabItem(tabName = "Combine_scrape_data",
+                    #         h1(paste0("Combine Scraped Data from ", Sys.Date())),
+                    #         helpText("Load Scrapped Data and aggregated DB and combine them."),
+                    #         fluidRow(
+                    #           column(4,
+                    #                  box(title = "DataBase Information:",
+                    #                      width = "100%", status = "primary",
+                    #                      solidHeader = TRUE, collapsible = TRUE,
+                    #                      fileInput(inputId = "scrape_data_fileinput",
+                    #                                label = "Please provide the current database:",
+                    #                                multiple = F),
+                    #                      div(id = "centricbutton",
+                    #                          actionButton("scrape_data_load_autoscout_db", "Load Autoscout DB",
+                    #                                       style="color: #FFFFFF; background-color:  #24a0ed; border-color:  #24a0ed")
+                    #                      )
+                    #                  ),
+                    #                  uiOutput("scrape_data_infos"),
+                    #                  uiOutput("scrape_data_generateDB")
+                    #               ),
+                    #           column(8,
+                    #                   uiOutput("scrape_data_autoscout_table_ui"),
+                    #                   # uiOutput("scrape_data_scrappeddata_table_ui")
+                    #                   # DT::dataTableOutput("scrape_data_autoscout_table"),
+                    #                   # DT::dataTableOutput("scrape_data_scrappeddata_table")
+                    #               )
+                    #         )
+                    #
+                    # ),
                     ############################################################################
                     #########                   Analyse Data                      ##############
                     ############################################################################
                     tabItem(tabName = "Data_analysis",
-                            h1("How it works"),
-                            helpText("Need still to be done:")
+                            h1("Car Pricing Tool:"),
+                            helpText("Please filter for your car and determine the correct pricing
+                                     for it."),
+                            # Display some KPIs
+                            fluidRow(
+                              valueBoxOutput("data_analysis_totlanumberofrows"),
+                              valueBoxOutput("data_analysis_scrapingdate"),
+                              valueBoxOutput("data_analysis_uniquetypsofcar")
+                            ),
+                            uiOutput("data_analysis_overall_graphs_ui")
+
 
                     ),
                     ############################################################################

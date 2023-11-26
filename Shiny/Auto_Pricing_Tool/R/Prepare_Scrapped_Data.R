@@ -26,6 +26,12 @@ prepare_scrapped_data <- function(df_to_prep){
     select(-element) %>%
     unique() %>%
     mutate(Datum = Sys.Date(),
+           Registriertes_Jahr = case_when(
+             car_registered_date == "Neues Fahrzeug" ~ as.numeric(substr(Sys.Date(),1,4)),
+             car_registered_date == "Vorführmodell" ~ as.numeric(substr(Sys.Date(),1,4)),
+             car_registered_date == "Tageszulassung" ~ as.numeric(substr(Sys.Date(),1,4)),
+             TRUE ~ as.numeric(substr(car_registered_date, 4, 7))
+           ),
            Marke = substr(car_names, 1, regexpr(" ", car_names)),
            Typ_1_details = substr(car_names, regexpr(" ", car_names) + 1, nchar(car_names)),
            Typ_2_details = substr(Typ_1_details, regexpr(" ", Typ_1_details) + 1, nchar(Typ_1_details)),
